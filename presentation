@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>True Acknowledge - Executive Presentation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background-color: #0f172a;
+      color: #1e293b;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Kanit', sans-serif;
+    }
+    .true-gradient-bg {
+      background: linear-gradient(135deg, #e60000 0%, #002d72 100%);
+    }
+    .true-gradient-text {
+      background: linear-gradient(90deg, #ff0000, #002d72);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .slide-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+    .slide-frame {
+      width: 100%;
+      max-width: 1440px;
+      height: 100%;
+      max-height: 820px;
+      background: #ffffff;
+      border-radius: 28px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .slide {
+      display: none;
+      flex: 1;
+      padding: 2.5rem 4rem;
+      overflow-y: auto;
+      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .slide.active {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card-hover {
+      transition: all 0.25s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0, 45, 114, 0.08);
+    }
+    .hm-pill {
+      display: inline-block;
+      min-width: 50px;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 12px;
+      text-align: center;
+    }
+    .hm-green { background-color: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+    .hm-orange { background-color: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; }
+    .hm-red { background-color: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+
+    /* สไตล์ป้ายกำกับ เดิม vs ใหม่ และ Loader แดงทรู */
+    .badge-old {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background-color: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 999px;
+    }
+    .badge-new {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: linear-gradient(90deg, #fff1f2, #ffe4e6);
+      color: #dc2626;
+      border: 1px solid #fecdd3;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 999px;
+    }
+    .true-loader-mini {
+      width: 22px;
+      aspect-ratio: 1;
+      --_g: no-repeat radial-gradient(farthest-side,#ff0000 94%,#0000);
+      background:
+        var(--_g) 0    0,
+        var(--_g) 100% 0,
+        var(--_g) 100% 100%,
+        var(--_g) 0    100%;
+      background-size: 40% 40%;
+      animation: l38 .5s infinite;
+      display: inline-block;
+    }
+    @keyframes l38 {
+      100% {background-position: 100% 0,100% 100%,0 100%,0 0}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-container">
+    <div class="slide-frame">
+      
+      <!-- Top Bar -->
+      <div class="flex items-center justify-between px-10 py-4 border-b border-slate-100 bg-white z-10">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl true-gradient-bg flex items-center justify-center text-white font-bold text-lg shadow-sm">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <div>
+            <span class="font-heading font-bold text-slate-800 text-lg tracking-wide">True Acknowledge</span>
+            <span class="text-xs bg-red-50 text-red-600 font-bold px-2.5 py-0.5 rounded-full ml-2 border border-red-200">Executive BI Dashboard & Ultra-Speed LIFF</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div id="slide-indicators" class="flex items-center gap-2"></div>
+          <button onclick="toggleNotes()" class="text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition" title="เปิด/ปิด บทพูดนำเสนอ (กดปุ่ม N)">
+            <i class="fas fa-comment-dots text-blue-800 mr-1"></i> บทพูด (Notes)
+          </button>
+          <button onclick="toggleFullScreen()" class="text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-800 hover:bg-slate-900 text-white transition" title="ขยายเต็มจอ (กดปุ่ม F)">
+            <i class="fas fa-expand mr-1"></i> Full Screen
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SLIDE 1: Cover & Executive Summary (เดิม)  -->
+      <!-- ========================================== -->
+      <div class="slide active" data-notes="สวัสดีครับ วันนี้ขออนุญาตนำเสนอการอัปเกรดระบบ True Acknowledge ทั้งฝั่ง Admin Dashboard และฝั่งพนักงาน (LINE LIFF) ซึ่งเราพัฒนาต่อยอดจากระบบเก็บข้อมูลเดิม ให้กลายเป็น Executive BI Analytics เต็มรูปแบบ พร้อมปรับโครงสร้างความเร็วสูงช่วยให้พนักงานเข้าเว็บและกดรับทราบได้ในเสี้ยววินาทีครับ">
+        <div class="my-auto">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 border border-red-200 text-red-600 text-sm font-bold mb-6">
+            <i class="fas fa-rocket"></i> SYSTEM UPGRADE & EXECUTIVE SUMMARY
+          </div>
+          <h1 class="text-5xl font-bold leading-tight text-slate-900 mb-4">
+            ยกระดับการติดตามข่าวสารสู่<br>
+            <span class="true-gradient-text">Executive BI & Smart Analytics</span>
+          </h1>
+          <p class="text-xl text-slate-600 max-w-4xl mb-10 leading-relaxed">
+            เปลี่ยนการดึงข้อมูลมาทำกราฟแบบเดิม สู่ระบบวิเคราะห์เทรนด์อัตโนมัติแบบ Real-time ที่แม่นยำ 100% 
+            พร้อมระบบคัดกรองอัจฉริยะและเครื่องมือติดตามพนักงานค้างอ่านครบวงจรในคลิกเดียว
+          </p>
+
+          <div class="grid grid-cols-3 gap-6">
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 card-hover">
+              <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-2xl mb-4">
+                <i class="fas fa-bullseye"></i>
+              </div>
+              <h3 class="text-xl font-bold text-slate-800 mb-2">1. แม่นยำ & มาตรฐานเดียวกัน</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                ปรับเกณฑ์การตัดรอบแคมเปญรายเดือนตาม <b>"วันสิ้นสุดแคมเปญ"</b> ให้ตรงกันทั้งระบบ ปิดงบรายเดือนได้นิ่งสนิทและยุติธรรมต่อการประเมิน KPI สาขา
+              </p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 card-hover">
+              <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-900 flex items-center justify-center text-2xl mb-4">
+                <i class="fas fa-wand-magic-sparkles"></i>
+              </div>
+              <h3 class="text-xl font-bold text-slate-800 mb-2">2. วิเคราะห์อัตโนมัติ (Zero-Effort)</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                มีระบบ <b>Smart Cascading Filter</b> และกล่อง <b>AI Executive Summary</b> ที่เขียนบทสรุปผู้บริหาร จัดอันดับ และชี้เป้าแคมเปญที่ต้องเร่งติดตามให้ทันที
+              </p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 card-hover">
+              <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl mb-4">
+                <i class="fas fa-bolt"></i>
+              </div>
+              <h3 class="text-xl font-bold text-slate-800 mb-2">3. รองรับการใช้งานพร้อมกันสูง</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                อัปเกรดโครงสร้างหลังบ้านด้วย <b>TextFinder + getRangeList + CacheService</b> และระบบ Auto-Retry ป้องกันปัญหาคิวเต็มเมื่อพนักงานกดพร้อมกันหลายพันคน
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100 text-xs text-slate-400">
+          <span>Channel Academy & Communication | True Corporation</span>
+          <span>กดปุ่มลูกศรขวา (→) เพื่อดูรายละเอียดฟังก์ชัน</span>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SLIDE 2: Overview & Campaign Management    -->
+      <!-- ========================================== -->
+      <div class="slide" data-notes="ฟังก์ชันส่วนแรกคือ การดูภาพรวมและบริหารจัดการแคมเปญข่าวสารครับ แอดมินสามารถดูยอดพนักงานทั้งหมดและยอดรับทราบสะสมแบบ Real-time แยกแท็บสถานะชัดเจน และที่สำคัญคือสามารถตั้งค่าล็อกกลุ่มเป้าหมายแบบ Micro-Targeting ได้ว่าจะส่งหาทุกคน ส่งเฉพาะ Shop หรือส่งเฉพาะบางตำแหน่งในกลุ่ม Geo-Based เช่น ASM หรือ BOM ครับ">
+        <div>
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-red-600">MODULE 01 • OVERVIEW & MANAGEMENT</span>
+              <h2 class="text-3xl font-bold text-slate-900 mt-1">1. ภาพรวมระบบและการบริหารจัดการแคมเปญข่าวสาร</h2>
+            </div>
+            <span class="px-4 py-1.5 rounded-full bg-blue-50 text-blue-900 font-bold text-sm border border-blue-200">
+              Real-time Monitoring & Micro-Targeting
+            </span>
+          </div>
+
+          <div class="grid grid-cols-12 gap-6 items-stretch">
+            <div class="col-span-5 flex flex-col justify-between space-y-4">
+              <div class="p-5 rounded-2xl bg-gradient-to-br from-slate-50 to-blue-50/40 border border-slate-200">
+                <div class="flex items-center gap-4 mb-3">
+                  <div class="w-12 h-12 rounded-full bg-blue-900 text-white flex items-center justify-center text-xl shadow">
+                    <i class="fas fa-users"></i>
+                  </div>
+                  <div>
+                    <div class="text-xs font-bold text-slate-500">การ์ดสรุปภาพรวมทั้งระบบ</div>
+                    <div class="text-lg font-bold text-slate-800">Real-time Total Users & Acknowledged</div>
+                  </div>
+                </div>
+                <p class="text-sm text-slate-600">
+                  แสดงจำนวนพนักงานกลุ่มเป้าหมายทั้งหมด (ตัด Back Office อัตโนมัติ) และยอดการกดรับทราบสะสมทุกหัวข้อแบบเรียลไทม์
+                </p>
+              </div>
+
+              <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                  <i class="fas fa-folder-tree text-red-600"></i> แยกแท็บสถานะแคมเปญชัดเจน 3 มุมมอง
+                </h4>
+                <ul class="text-sm text-slate-600 space-y-2">
+                  <li class="flex items-start gap-2"><i class="fas fa-circle-play text-emerald-600 mt-1"></i> <span><b>กำลังดำเนินการ:</b> ติดตามแคมเปญที่ยังเปิดให้พนักงานกดรับทราบอยู่ในปัจจุบัน</span></li>
+                  <li class="flex items-start gap-2"><i class="fas fa-check-circle text-slate-500 mt-1"></i> <span><b>สิ้นสุดแล้ว (เลือกเดือนได้):</b> ดูสรุปผลการปิดยอดของแคมเปญที่จบในแต่ละเดือน</span></li>
+                  <li class="flex items-start gap-2"><i class="fas fa-layer-group text-blue-800 mt-1"></i> <span><b>ดูทั้งหมด:</b> คลังข้อมูลแคมเปญทั้งหมดตั้งแต่เริ่มใช้งานระบบ</span></li>
+                </ul>
+              </div>
+
+              <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                  <i class="fas fa-crosshairs text-blue-900"></i> ระบบล็อกกลุ่มเป้าหมาย (Micro-Targeting)
+                </h4>
+                <p class="text-sm text-slate-600">
+                  เพิ่ม/แก้ไข/ลบแคมเปญได้ทันทีจากหน้าเว็บ พร้อมกำหนดสิทธิ์ผู้เห็นข่าวได้ละเอียดถึงระดับตำแหน่งย่อยในกลุ่ม <b>Geo-Based</b> (คำนวณตัวหารเป้าหมายตามตำแหน่งที่เลือกจริงอัตโนมัติ)
+                </p>
+              </div>
+            </div>
+
+            <div class="col-span-7 bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
+                  <div class="flex gap-2">
+                    <span class="px-3 py-1 rounded-lg bg-red-600 text-white text-xs font-bold"><i class="fas fa-circle-play mr-1"></i> กำลังดำเนินการ</span>
+                    <span class="px-3 py-1 rounded-lg bg-white text-slate-600 text-xs font-bold border"><i class="fas fa-check-circle mr-1"></i> สิ้นสุดแล้ว</span>
+                    <span class="px-3 py-1 rounded-lg bg-white text-slate-600 text-xs font-bold border"><i class="fas fa-layer-group mr-1"></i> ดูทั้งหมด</span>
+                  </div>
+                  <span class="px-3 py-1 rounded-full bg-red-600 text-white text-xs font-bold shadow-sm">+ เพิ่มหัวข้อใหม่</span>
+                </div>
+
+                <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm mb-4">
+                  <table class="w-full text-left text-xs">
+                    <thead class="bg-slate-100 text-slate-600 font-bold">
+                      <tr>
+                        <th class="p-3">หัวข้อข่าวสาร</th>
+                        <th class="p-3 text-center">กลุ่มเป้าหมาย</th>
+                        <th class="p-3 text-center">วันสิ้นสุด</th>
+                        <th class="p-3 text-center">% รับทราบ</th>
+                        <th class="p-3 text-center">สถานะ</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                      <tr>
+                        <td class="p-3 font-bold text-slate-800">Morning Brief 30-5 พ.ย.</td>
+                        <td class="p-3 text-center"><span class="px-2 py-0.5 bg-blue-50 text-blue-800 rounded font-semibold">Shop</span></td>
+                        <td class="p-3 text-center text-slate-500">05/11/2026</td>
+                        <td class="p-3 text-center font-bold text-blue-900 text-sm">68%</td>
+                        <td class="p-3 text-center"><span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-bold">กำลังดำเนินการ</span></td>
+                      </tr>
+                      <tr>
+                        <td class="p-3 font-bold text-slate-800">แนวทางการตรวจเยี่ยมสาขา Q4</td>
+                        <td class="p-3 text-center"><span class="px-2 py-0.5 bg-sky-100 text-sky-900 rounded font-semibold">Geo-Based [ASM, BOM]</span></td>
+                        <td class="p-3 text-center text-slate-500">10/11/2026</td>
+                        <td class="p-3 text-center font-bold text-blue-900 text-sm">85%</td>
+                        <td class="p-3 text-center"><span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-bold">กำลังดำเนินการ</span></td>
+                      </tr>
+                      <tr>
+                        <td class="p-3 font-bold text-slate-800">ขั้นตอนอัปเดตข้อมูลความปลอดภัย</td>
+                        <td class="p-3 text-center"><span class="px-2 py-0.5 bg-slate-100 text-slate-700 rounded font-semibold">All (ทุกคน)</span></td>
+                        <td class="p-3 text-center text-slate-500">31/10/2026</td>
+                        <td class="p-3 text-center font-bold text-blue-900 text-sm">74%</td>
+                        <td class="p-3 text-center"><span class="px-2.5 py-0.5 rounded-full bg-slate-200 text-slate-700 font-bold">สิ้นสุดแล้ว</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-xl p-4 border border-slate-200 flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-bold text-red-600 mb-1"><i class="fas fa-chart-pie mr-1"></i> กราฟโดนัทแยกตามช่องทางย่อย</div>
+                  <div class="text-sm font-bold text-slate-800">เลือกหัวข้อข่าวเพื่อดู % รับทราบรายช่องทาง</div>
+                  <div class="text-xs text-slate-500 mt-1">เรียงลำดับจากช่องทางที่ทำ % สูงสุดไปต่ำสุดอัตโนมัติ พร้อมยอดคนอ่านแล้ว / ยังไม่อ่าน</div>
+                </div>
+                <div class="flex gap-3">
+                  <div class="w-16 h-16 rounded-full border-4 border-red-600 flex flex-col items-center justify-center bg-red-50/30">
+                    <span class="text-xs font-extrabold text-red-600">100%</span>
+                    <span class="text-[9px] text-slate-500">Sphere</span>
+                  </div>
+                  <div class="w-16 h-16 rounded-full border-4 border-orange-500 flex flex-col items-center justify-center bg-orange-50/30">
+                    <span class="text-xs font-extrabold text-orange-600">60%</span>
+                    <span class="text-[9px] text-slate-500">DB7</span>
+                  </div>
+                  <div class="w-16 h-16 rounded-full border-4 border-red-500 flex flex-col items-center justify-center bg-red-50/30">
+                    <span class="text-xs font-extrabold text-red-600">46%</span>
+                    <span class="text-[9px] text-slate-500">Shop WW</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100 text-xs text-slate-400">
+          <span>Slide 2 of 9 • Campaign Overview & Micro-Targeting</span>
+          <span>True Acknowledge Dashboard</span>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SLIDE 3: Smart 4D Filter & Auto Summary    -->
+      <!-- ========================================== -->
+      <div class="slide" data-notes="ไฮไลท์สำคัญของเวอร์ชันนี้คือ ตัวกรองอัจฉริยะ 4 มิติครับ เวลาผู้บริหารเลือกเดือน เช่น เดือนตุลาคม และเลือกช่องทาง True Shop DB7 ระบบจะปรับช่องที่ 3 ให้แสดงเฉพาะประเภทแคมเปญที่เกี่ยวข้องกับ Shop พร้อมนับจำนวนแคมเปญที่สิ้นสุดในเดือนนั้นคือ 7 แคมเปญให้อัตโนมัติ ไม่เอาข่าวข้ามเดือนหรือข่าวของ Geo-Based มาปน และด้านล่างจะมีกล่อง AI สรุปผลการวิเคราะห์เป็นข้อความให้อ่านเข้าใจได้ทันทีครับ">
+        <div>
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-red-600">MODULE 02 • SMART CASCADING FILTER & AI INSIGHT</span>
+              <h2 class="text-3xl font-bold text-slate-900 mt-1">2. ตัวกรองอัจฉริยะ 4 มิติ & บทสรุปผู้บริหารอัตโนมัติ</h2>
+            </div>
+            <span class="px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-700 font-bold text-sm border border-emerald-200">
+              <i class="fas fa-check-double mr-1"></i> ป้องกันการดูข้อมูลผิดกลุ่ม 100%
+            </span>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-gradient-to-r from-slate-50 to-blue-50/50 border border-slate-200 mb-5 shadow-sm">
+            <div class="grid grid-cols-3 gap-4 mb-3">
+              <div class="bg-white p-3 rounded-xl border border-slate-200">
+                <div class="text-xs font-bold text-slate-500 mb-1"><i class="fas fa-calendar-alt text-red-600 mr-1"></i> 1. เลือกช่วงเวลา / เดือน (Cut-off วันสิ้นสุด):</div>
+                <div class="font-bold text-sm text-slate-800 flex justify-between items-center">
+                  <span>เดือนตุลาคม 2026</span>
+                  <i class="fas fa-chevron-down text-xs text-slate-400"></i>
+                </div>
+              </div>
+              <div class="bg-white p-3 rounded-xl border-2 border-blue-600 shadow-sm">
+                <div class="text-xs font-bold text-blue-800 mb-1"><i class="fas fa-sitemap text-blue-600 mr-1"></i> 2. เลือกมุมมองช่องทาง (Channel):</div>
+                <div class="font-bold text-sm text-slate-900 flex justify-between items-center">
+                  <span>🏪 True Shop DB7</span>
+                  <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">คลิกเดียวจบ</span>
+                </div>
+              </div>
+              <div class="bg-white p-3 rounded-xl border-2 border-emerald-500 shadow-sm">
+                <div class="text-xs font-bold text-emerald-700 mb-1"><i class="fas fa-tags text-emerald-600 mr-1"></i> 3. กรองประเภทแคมเปญ (ปรับอัตโนมัติ):</div>
+                <div class="font-bold text-sm text-slate-900 flex justify-between items-center">
+                  <span>🏪 เฉพาะประเภท Shop (7 แคมเปญ)</span>
+                  <i class="fas fa-magic text-emerald-600"></i>
+                </div>
+              </div>
+            </div>
+            <div class="bg-red-50/70 p-3 rounded-xl border border-red-200 flex items-center justify-between">
+              <div class="text-xs">
+                <span class="font-bold text-red-600"><i class="fas fa-crosshairs mr-1"></i> 4. โหมดเจาะลึกหัวข้อข่าว (Deep Dive):</span>
+                <span class="text-slate-600 ml-1">สลับดูเปรียบเทียบ <b>% ข่าวที่เลือก vs ค่าเฉลี่ยปกติของแต่ละช่องทาง</b> พร้อมตาราง Heatmap ย้อนหลัง 5 แคมเปญ</span>
+              </div>
+              <span class="text-xs font-bold bg-white text-red-600 px-3 py-1 rounded-lg border border-red-200">พร้อมใช้งานทั้ง Shop & Geo-Based</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-4 gap-4 mb-5">
+            <div class="p-4 rounded-xl bg-white border border-slate-200 border-l-4 border-l-blue-900 shadow-sm">
+              <div class="text-xs font-bold text-slate-500 flex justify-between"><span>อัตราการรับทราบเฉลี่ย</span> <i class="fas fa-bullseye text-blue-900"></i></div>
+              <div class="text-2xl font-extrabold text-blue-900 my-1">60%</div>
+              <div class="text-[11px] font-semibold text-slate-500">เฉลี่ยจาก <b>7</b> แคมเปญที่สิ้นสุดแล้ว</div>
+            </div>
+            <div class="p-4 rounded-xl bg-white border border-slate-200 border-l-4 border-l-red-600 shadow-sm">
+              <div class="text-xs font-bold text-slate-500 flex justify-between"><span>แคมเปญล่าสุด vs ค่าเฉลี่ย</span> <i class="fas fa-bolt text-red-600"></i></div>
+              <div class="text-2xl font-extrabold text-slate-800 my-1">65%</div>
+              <div class="text-[11px] font-bold text-emerald-600"><i class="fas fa-arrow-trend-up"></i> +5% สูงกว่าค่าเฉลี่ย</div>
+            </div>
+            <div class="p-4 rounded-xl bg-white border border-slate-200 border-l-4 border-l-emerald-600 shadow-sm">
+              <div class="text-xs font-bold text-slate-500 flex justify-between"><span>แชมป์ช่องทาง (Top Performer)</span> <i class="fas fa-trophy text-emerald-600"></i></div>
+              <div class="text-base font-extrabold text-emerald-600 my-1 truncate">True Sphere & Branding</div>
+              <div class="text-[11px] font-semibold text-slate-500">รับทราบเฉลี่ย <b>93%</b></div>
+            </div>
+            <div class="p-4 rounded-xl bg-white border border-slate-200 border-l-4 border-l-amber-500 shadow-sm">
+              <div class="text-xs font-bold text-slate-500 flex justify-between"><span>ต้องเร่งติดตาม (Focus Needed)</span> <i class="fas fa-exclamation-triangle text-amber-500"></i></div>
+              <div class="text-base font-extrabold text-amber-700 my-1 truncate">True Shop TPNP</div>
+              <div class="text-[11px] font-semibold text-slate-500">เฉลี่ย <b>14%</b> (ค้างอ่านสะสมสูงสุด)</div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-blue-50/80 via-white to-red-50/40 border border-blue-200 border-l-4 border-l-blue-900 flex items-start gap-4 shadow-sm">
+            <div class="w-10 h-10 rounded-full true-gradient-bg text-white flex items-center justify-center flex-shrink-0 text-lg shadow">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <div class="text-sm leading-relaxed text-slate-700">
+              <div class="font-bold text-blue-900 mb-0.5">💡 กล่องสรุปผลวิเคราะห์อัตโนมัติ (Smart Executive Summary) — ประมวลผลทันทีตามตัวกรองที่เลือก:</div>
+              "มีอัตราการรับทราบเฉลี่ยอยู่ที่ <b class="text-blue-900">60%</b> (อันดับที่ <b>2</b> จาก 7 ช่องทาง • <b class="text-emerald-600">สูงกว่าค่าเฉลี่ยกลุ่ม +8%</b>) • แคมเปญที่ทำได้ดีที่สุดคือ <b class="text-emerald-700">"Morning Brief 23-2..." (72%)</b> • ข้อเสนอแนะสำหรับแคมเปญถัดไป: กวดขันกลุ่มที่ต่ำกว่าเกณฑ์เพื่อดึงภาพรวมให้แตะมาตรฐาน <b>80%</b>"
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100 text-xs text-slate-400">
+          <span>Slide 3 of 9 • Smart Cascading Filter & Auto Executive Insight</span>
+          <span>True Acknowledge Dashboard</span>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SLIDE 4: Visual Charts & Heatmap Matrix    -->
+      <!-- ========================================== -->
+      <div class="slide" data-notes="ส่วนที่ 4 คือกราฟเปรียบเทียบเชิงลึกและตาราง Heatmap ครับ ในกราฟเส้นซ้ายมือ เราเพิ่มตัวเลข % กำกับบนเส้นประ Benchmark ทุกจุด เพื่อให้เห็นชัดๆ เลยว่าช่องทางที่เราดูอยู่ สูงหรือต่ำกว่าค่าเฉลี่ยของกลุ่ม Shop กี่เปอร์เซ็นต์ สามารถคลิกที่จุดกราฟเพื่อดูยอดคนอ่านแล้วและคนค้างอ่านได้ทันที และเมื่อเลือกเจาะลึกหัวข้อข่าว จะมีตาราง Heatmap 5 แคมเปญล่าสุดแสดงสีเขียว-ส้ม-แดง ให้เห็นเทรนด์ของทุกสาขาในตารางเดียวครับ">
+        <div>
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-red-600">MODULE 03 • INTERACTIVE CHARTS & DIAGNOSTIC MATRIX</span>
+              <h2 class="text-3xl font-bold text-slate-900 mt-1">3. กราฟเปรียบเทียบ Benchmark & ตารางวินิจฉัย Heatmap</h2>
+            </div>
+            <div class="flex gap-2 text-xs">
+              <span class="hm-pill hm-green">ดีเยี่ยม ≥80%</span>
+              <span class="hm-pill hm-orange">ปานกลาง 50-79%</span>
+              <span class="hm-pill hm-red">ต้องเร่งติดตาม &lt;50%</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-6">
+            <div class="col-span-6 bg-slate-50 rounded-2xl p-5 border border-slate-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="font-bold text-slate-800 text-base"><i class="fas fa-wave-square text-blue-800 mr-2"></i>กราฟเส้นเทียบค่าเฉลี่ยกลุ่ม (Benchmark)</h3>
+                  <span class="text-[11px] bg-white px-2.5 py-1 rounded-full border font-semibold text-red-600"><i class="fas fa-mouse-pointer mr-1"></i>คลิกจุดกราฟเพื่อดูยอดค้างอ่าน</span>
+                </div>
+                <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                  แสดงตัวเลข <b>% ของช่องทางที่เลือก (เส้นทึบสีแดง)</b> เทียบกับ <b>% เฉลี่ยรวมทุกช่องทางในกลุ่มเดียวกัน (เส้นประสีเทา)</b> แบบจุดต่อจุด ช่วยให้เห็นทันทีว่าแคมเปญไหนทำได้สูงหรือต่ำกว่ามาตรฐานกลุ่ม
+                </p>
+
+                <div class="bg-white p-4 rounded-xl border border-slate-200 mb-3">
+                  <div class="flex justify-between items-end h-32 px-4 pt-4 pb-2 border-b border-slate-100 relative">
+                    <div class="flex flex-col items-center gap-1">
+                      <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 rounded">48%</span>
+                      <div class="w-3 h-3 rounded-full bg-red-600"></div>
+                      <span class="text-[11px] font-extrabold text-red-600">46%</span>
+                      <span class="text-[9px] text-slate-400 mt-2">แคมเปญ 1</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1">
+                      <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 rounded">61%</span>
+                      <div class="w-3 h-3 rounded-full bg-red-600"></div>
+                      <span class="text-[11px] font-extrabold text-red-600">43%</span>
+                      <span class="text-[9px] text-slate-400 mt-2">แคมเปญ 2</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1">
+                      <span class="text-[11px] font-extrabold text-red-600">56%</span>
+                      <div class="w-3 h-3 rounded-full bg-red-600"></div>
+                      <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 rounded">54%</span>
+                      <span class="text-[9px] text-slate-400 mt-2">แคมเปญ 3</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1">
+                      <span class="text-[11px] font-extrabold text-red-600">60%</span>
+                      <div class="w-3.5 h-3.5 rounded-full bg-red-600 ring-4 ring-red-100"></div>
+                      <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 rounded">58%</span>
+                      <span class="text-[9px] text-slate-400 mt-2">แคมเปญ 4</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1">
+                      <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-1.5 rounded">49%</span>
+                      <div class="w-3 h-3 rounded-full bg-red-600"></div>
+                      <span class="text-[11px] font-extrabold text-red-600">47%</span>
+                      <span class="text-[9px] text-slate-400 mt-2">แคมเปญ 5</span>
+                    </div>
+                  </div>
+                  <div class="flex justify-center gap-6 mt-3 text-xs font-bold">
+                    <span class="flex items-center gap-1.5 text-red-600"><span class="w-4 h-1.5 bg-red-600 rounded"></span> % ช่องทางที่เลือก</span>
+                    <span class="flex items-center gap-1.5 text-slate-500"><span class="w-4 h-1 border-b-2 border-dashed border-slate-500"></span> % เฉลี่ยรวมทุกช่องทาง Shop (Benchmark)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="text-xs text-slate-500 bg-white p-3 rounded-xl border border-slate-200">
+                <i class="fas fa-hand-pointer text-red-600 mr-1"></i> <b>Interactive Drill-Down:</b> เมื่อคลิกที่จุดกราฟหรือแถวตาราง จะแสดงป๊อปอัปสรุปยอด เป้าหมาย / อ่านแล้ว / ยังไม่อ่าน แยกตามกลุ่มทันที
+              </div>
+            </div>
+
+            <div class="col-span-6 bg-slate-50 rounded-2xl p-5 border border-slate-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="font-bold text-slate-800 text-base"><i class="fas fa-table-cells text-red-600 mr-2"></i>ตารางผ่าตัดรายช่องทาง & Heatmap 5 แคมเปญ</h3>
+                  <span class="text-[11px] bg-emerald-600 text-white px-2.5 py-1 rounded-full font-bold"><i class="fas fa-file-excel mr-1"></i>Export Excel ได้ทันที</span>
+                </div>
+                <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                  ในโหมดเจาะลึกหัวข้อข่าว ตารางจะนำทุกช่องทางในกลุ่มมาเปรียบเทียบ <b>% ข่าวที่เลือก vs % เฉลี่ยปกติ</b> พร้อมป้ายสี Heatmap ย้อนหลัง 5 แคมเปญเพื่อให้เห็นพฤติกรรมการอ่านสะสม
+                </p>
+
+                <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                  <table class="w-full text-center text-xs">
+                    <thead class="bg-slate-100 text-slate-600 font-bold">
+                      <tr>
+                        <th class="p-2.5 text-left">ช่องทาง (Shop)</th>
+                        <th class="p-2.5">ค้างอ่าน</th>
+                        <th class="p-2.5 bg-red-50 text-red-700">% ข่าวนี้</th>
+                        <th class="p-2.5">เฉลี่ยปกติ</th>
+                        <th class="p-2.5">ข่าว-3</th>
+                        <th class="p-2.5">ข่าว-2</th>
+                        <th class="p-2.5">ข่าว-1</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 font-semibold">
+                      <tr>
+                        <td class="p-2.5 text-left font-bold">True Sphere</td>
+                        <td class="p-2.5 text-red-600">0</td>
+                        <td class="p-2.5 bg-red-50/40"><span class="hm-pill hm-green">100%</span></td>
+                        <td class="p-2.5 text-slate-500">95%</td>
+                        <td class="p-2.5"><span class="hm-pill hm-green">94%</span></td>
+                        <td class="p-2.5"><span class="hm-pill hm-green">96%</span></td>
+                        <td class="p-2.5"><span class="hm-pill hm-green">100%</span></td>
+                      </tr>
+                      <tr>
+                        <td class="p-2.5 text-left font-bold">True Shop DB7</td>
+                        <td class="p-2.5 text-red-600">145</td>
+                        <td class="p-2.5 bg-red-50/40"><span class="hm-pill hm-orange">64%</span></td>
+                        <td class="p-2.5 text-slate-500">60%</td>
+                        <td class="p-2.5"><span class="hm-pill hm-orange">58%</span></td>
+                        <td class="p-2.5"><span class="hm-pill hm-orange">62%</span></td>
+                        <td class="p-2.5"><span class="hm-pill hm-orange">61%</span></td>
+                      </tr>
+                      <tr>
+                        <td class="p-2.5 text-left font-bold">True Shop WW</td>
+                        <td class="p-2.5 text-red-600">310</td>
+                        <td class="p-2.5 bg-red-50/40"><span class="hm-pill hm-red">47%</span></td>
+                        <td class="p-2.5 text-slate-500">46%</td>
+                        <td class="p-2.5"><span class="hm-pill hm-orange">56%</span></td>
+                        <td class="p-2.5"><span class="hm-pill hm-orange">60%</span></td>
+                        <td class="p-2.5"><span class="hm-pill hm-red">43%</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="text-xs text-slate-500 bg-white p-3 rounded-xl border border-slate-200 mt-3">
+                <i class="fas fa-tag text-emerald-600 mr-1"></i> <b>ป้ายสถานะชัดเจน:</b> ในโหมดดูเทรนด์รวม ตารางจะแสดงช่วงวันเริ่ม-สิ้นสุด พร้อมป้ายกำกับ <b>กำลังดำเนินการ / สิ้นสุดแล้ว</b> ท้ายชื่อแคมเปญทุกเรื่อง
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100 text-xs text-slate-400">
+          <span>Slide 4 of 9 • Benchmark Progression & Heatmap Diagnostic</span>
+          <span>True Acknowledge Dashboard</span>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SLIDE 5: Actionable Export & Email Alert   -->
+      <!-- ========================================== -->
+      <div class="slide" data-notes="ส่วนที่ 5 คือ การนำข้อมูลไปใช้ติดตามงานต่อครับ เราออกแบบให้จบในคลิกเดียว ไม่ว่าจะเป็นการกด Export ตารางวิเคราะห์บนหน้าจอเป็นไฟล์ Excel ทันที การดาวน์โหลดรายงานฉบับเต็ม 3 ชีทที่คัดกรองเฉพาะข่าวของช่องทางนั้นๆ หรือการกดส่ง Email สรุปอันดับผลงานพร้อมแนบไฟล์รายชื่อพนักงานที่ยังไม่ได้อ่าน ส่งตรงให้หัวหน้างานนำไปติดตามต่อได้ทันทีครับ">
+        <div>
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-red-600">MODULE 04 • ACTIONABLE REPORTING & AUTOMATION</span>
+              <h2 class="text-3xl font-bold text-slate-900 mt-1">4. ระบบออกรายงาน Excel & ส่งอีเมลติดตามคนค้างอ่านอัตโนมัติ</h2>
+            </div>
+            <span class="px-4 py-1.5 rounded-full bg-red-50 text-red-600 font-bold text-sm border border-red-200">
+              End-to-End Actionable Workflow
+            </span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-6 mb-8">
+            <div class="p-6 rounded-2xl bg-white border-2 border-emerald-500/30 shadow-sm flex flex-col justify-between card-hover">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl">
+                    <i class="fas fa-table"></i>
+                  </div>
+                  <span class="text-xs font-bold bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full border border-emerald-200">Instant .XLSX</span>
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 mb-2">1. Export ตารางวิเคราะห์หน้าจอ</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                  ปุ่ม <b>"Export ตารางนี้ (Excel)"</b> ในหน้า Analytics ช่วยให้ดาวน์โหลดตาราง Diagnostic Matrix หรือตาราง Heatmap ที่กำลังกรองดูอยู่ ออกมาเป็นไฟล์ Excel แท้ (`.xlsx`) พร้อมจัดความกว้างคอลัมน์อัตโนมัติ
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-100 text-xs font-bold text-emerald-700">
+                <i class="fas fa-bolt mr-1"></i> ดาวน์โหลดได้ทันทีโดยไม่ต้องรอเซิร์ฟเวอร์
+              </div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-white border-2 border-blue-900/20 shadow-sm flex flex-col justify-between card-hover">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-900 flex items-center justify-center text-2xl">
+                    <i class="fas fa-file-excel"></i>
+                  </div>
+                  <span class="text-xs font-bold bg-blue-50 text-blue-900 px-3 py-1 rounded-full border border-blue-200">3-Sheet Workbook</span>
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 mb-2">2. รายงาน Excel ฉบับสมบูรณ์ 3 ชีท</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                  เลือกดึงข้อมูลทั้งหมดหรือแยกตามช่องทาง ระบบจะสร้างไฟล์ Excel ประกอบด้วย:<br>
+                  • <b>Sheet 1 (Data):</b> ประวัติการกดรับทราบทั้งหมด<br>
+                  • <b>Sheet 2 (Summary_Report):</b> เช็กสถานะรายบุคคล (✅ อ่านแล้ว / ไม่ได้อ่าน)<br>
+                  • <b>Sheet 3 (Topic Sheet):</b> เจาะลึกเฉพาะแคมเปญที่เลือก
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-100 text-xs font-bold text-blue-900">
+                <i class="fas fa-filter mr-1"></i> คัดกรองเฉพาะข่าวที่ช่องทางนั้นต้องอ่านอัตโนมัติ
+              </div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-white border-2 border-red-500/30 shadow-sm flex flex-col justify-between card-hover">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div class="w-12 h-12 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center text-2xl">
+                    <i class="fas fa-envelope-open-text"></i>
+                  </div>
+                  <span class="text-xs font-bold bg-red-50 text-red-600 px-3 py-1 rounded-full border border-red-200">Auto Email + Unread List</span>
+                </div>
+                <h3 class="text-lg font-bold text-slate-800 mb-2">3. ส่งอีเมลแจ้งเตือนพร้อมรายชื่อค้างอ่าน</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                  กดส่งรายงานสรุปสถานะแคมเปญเข้าอีเมลผู้เกี่ยวข้อง แสดงการ์ดเป้าหมายรวม / รับทราบแล้ว / ยังไม่ได้อ่าน พร้อมตารางจัดอันดับ <b>Leaderboard</b> และแนบไฟล์ Excel <b>รายชื่อคนที่ยังไม่ได้อ่าน (Unread_List)</b>
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-100 text-xs font-bold text-red-600">
+                <i class="fas fa-paper-plane mr-1"></i> ช่วยให้หัวหน้างานนำไปติดตามรายบุคคลได้ทันที
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl true-gradient-bg text-white flex items-center justify-between shadow-lg">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center text-2xl">
+                <i class="fas fa-shield-check"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-lg">พร้อมใช้งานจริง 100% ทั้งฝั่งพนักงาน (LINE LIFF) และฝั่งผู้บริหาร (Admin Dashboard)</h4>
+                <p class="text-xs text-white/85 mt-0.5">
+                  ตรวจสอบความซ้ำซ้อนแม่นยำด้วย <b>ชื่อ-นามสกุล + หัวข้อข่าว</b> • ซ่อนข่าวที่อ่านแล้วอัตโนมัติ • รายงานตรงกันทุกหน้า 100%
+                </p>
+              </div>
+            </div>
+            <div class="text-right flex-shrink-0">
+              <span class="px-4 py-2 rounded-full bg-white text-slate-900 font-bold text-xs shadow">
+                True Acknowledge Enterprise v2026
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100 text-xs text-slate-400">
+          <span>Slide 5 of 9 • Automated Reporting & Workflow Completion</span>
+          <span>กดปุ่มลูกศรขวา (→) เพื่อดูสรุปเปรียบเทียบฟังก์ชันเดิม vs อัปเกรดใหม่ล่าสุด</span>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- SLIDE 6: เปรียบเทียบฟังก์ชันเดิม vs อัปเกรดใหม่ + ปุ่มประเมิน SVG           -->
+      <!-- ========================================================================= -->
+      <div class="slide" data-notes="ตั้งแต่สไลด์หน้าที่ 6 ถึง 9 นี้ คือส่วนสรุปเปรียบเทียบระหว่าง ฟังก์ชันหลักเดิม กับ ฟังก์ชันที่เราเพิ่งอัปเกรดใหม่ล่าสุดครับ ในหน้านี้จะเห็นว่าเรารักษาฟังก์ชันเดิมไว้ครบ 100% และได้เพิ่ม 3 ฟีเจอร์สำคัญบนหน้า Admin คือ 1. ปุ่มประเมินความพึงพอใจเว็บด้วยภาพวาด SVG แท้ที่นับจำนวนคนกดจริงผ่าน PropertiesService หลังบ้าน 2. แอนิเมชัน Loader สีแดงทรู และ 3. การซิงค์สูตรนับข้อมูลของกราฟโดนัทให้ตั้งต้นจาก UserMaster เหมือนไฟล์ Excel ทำให้เคส True Sphere แสดงครบ 279/279 คน (100%) ตรงกันทุกจุดครับ">
+        <div>
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-red-600">MODULE 05 • CORE SYSTEM VS NEW UPGRADES (PART 1)</span>
+              <h2 class="text-3xl font-bold text-slate-900 mt-1">5. สรุปเปรียบเทียบ: ฟังก์ชันหลักเดิม vs ฟีเจอร์อัปเกรดใหม่ล่าสุด</h2>
+            </div>
+            <div class="flex gap-2">
+              <span class="badge-old"><i class="fas fa-cube"></i> ฟังก์ชันหลักเดิม</span>
+              <span class="badge-new"><i class="fas fa-sparkles"></i> อัปเกรดใหม่ล่าสุด</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-6 items-stretch">
+            <div class="col-span-6 space-y-4">
+              <div class="p-5 rounded-2xl bg-slate-50 border-2 border-blue-200">
+                <div class="mb-2"><span class="badge-old">1. ฟังก์ชันหลักเดิม (คงไว้ครบ 100%)</span></div>
+                <ul class="text-xs text-slate-700 space-y-2 leading-relaxed">
+                  <li>• <b>การ์ดภาพรวม & ตารางจัดการข่าวสาร 3 แท็บ:</b> ดูยอดรวมทั้งระบบ แยกแท็บ <i>กำลังดำเนินการ / สิ้นสุดแล้ว / ดูทั้งหมด</i> พร้อมเพิ่ม-แก้ไข-ลบแคมเปญ และล็อกตำแหน่ง Geo-Based</li>
+                  <li>• <b>ระบบออกรายงาน Excel 3 ชีท & ส่ง Email แจ้งเตือน:</b> ดึงไฟล์ Excel สรุปรายบุคคล และส่งอีเมลจัดอันดับ Leaderboard แนบไฟล์คนค้างอ่าน (`Unread_List`)</li>
+                </ul>
+              </div>
+
+              <div class="p-5 rounded-2xl bg-red-50/40 border-2 border-red-300 space-y-3">
+                <div><span class="badge-new">2. ฟีเจอร์ที่พัฒนาเพิ่มใหม่บนหน้าหลัก Admin</span></div>
+                <ul class="text-xs text-slate-800 space-y-2 leading-relaxed">
+                  <li>• <b>ปุ่มประเมินเว็บ & ป้ายคะแนน SVG แท้ (Real-time Voter Count):</b> กดให้คะแนน 1–5 ระดับ แสดงป้ายคะแนนพร้อมภาพวาด SVG ชุดเดียวกัน และนับจำนวนคนประเมินจริงผ่าน <code>PropertiesService</code> หลังบ้านโดยไม่ต้องสร้างชีทเพิ่ม</li>
+                  <li>• <b>ซิงค์สูตรนับข้อมูล (`getAdminStats`) ให้ตรงกับไฟล์ Excel 100%:</b> ตั้งต้นจากรายชื่อใน <code>UserMaster</code> เทียบกับ <code>ชื่อ-นามสกุล + หัวข้อข่าว</code> แก้ปัญหาตัวเลขบนกราฟโดนัทขาดไป 1 คนเมื่อเทียบกับ Excel</li>
+                  <li>• <b>เปลี่ยนไอคอนโหลดหน้าเว็บเป็น Loader สีแดงทรู:</b> แสดงจุดสี่เหลี่ยมหมุนสลับมุมสีแดงทรู พร้อมข้อความ <b>"กำลังโหลด..."</b></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-span-6 bg-slate-50 rounded-2xl p-5 border border-slate-200 flex flex-col justify-between">
+              <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <div class="flex justify-between items-center mb-3">
+                  <span class="text-xs font-bold text-slate-700"><i class="fas fa-smile-wink text-amber-500 mr-1"></i> UI ปุ่มประเมินความพึงพอใจเว็บ (SVG แท้ 100%)</span>
+                  <span class="badge-new">NEW FEATURE</span>
+                </div>
+                <div class="flex items-center justify-around py-2 bg-slate-50 rounded-xl border">
+                  <div class="text-center">
+                    <div class="text-[10px] text-slate-400 mb-1">ก่อนประเมิน</div>
+                    <div class="inline-flex items-center gap-2 bg-[#fef9e7] border border-[#fde68a] text-[#b45309] rounded-full px-3.5 py-1.5 font-bold text-xs shadow-sm">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M19 11V12C19 16.4183 15.4183 20 11 20C6.58172 20 3 16.4183 3 12C3 7.58172 6.58172 4 11 4H12" stroke="#D97706" stroke-width="2" stroke-linecap="round"/><circle cx="8.5" cy="10.5" r="1.2" fill="#D97706"/><circle cx="13.5" cy="10.5" r="1.2" fill="#D97706"/><path d="M8 14.5C9 16 13 16 14 14.5" stroke="#D97706" stroke-width="2" stroke-linecap="round"/><path d="M18 3V9M15 6H21" stroke="#D97706" stroke-width="2" stroke-linecap="round"/></svg>
+                      <span>ประเมินเว็บ</span>
+                    </div>
+                  </div>
+                  <i class="fas fa-arrow-right text-slate-300"></i>
+                  <div class="text-center">
+                    <div class="text-[10px] text-slate-400 mb-1">หลังประเมิน (นับคนกดจริง)</div>
+                    <div class="inline-flex items-center gap-2.5 bg-[#fefce8] border border-[#fde68a] rounded-2xl px-3 py-1.5 text-left shadow-sm">
+                      <svg width="36" height="36" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" fill="#FEF08A" stroke="#D97706" stroke-width="2.5"/><path d="M14.5 20.5C15.8 18 19.2 18 20.5 20.5M27.5 20.5C28.8 18 32.2 18 33.5 20.5" stroke="#78350F" stroke-width="2.5" stroke-linecap="round"/><circle cx="13.5" cy="25" r="2.8" fill="#F87171" opacity="0.65"/><circle cx="34.5" cy="25" r="2.8" fill="#F87171" opacity="0.65"/><path d="M16 27.5C16 32.5 32 32.5 32 27.5H16Z" fill="#EF4444" stroke="#78350F" stroke-width="2" stroke-linejoin="round"/></svg>
+                      <div>
+                        <div class="text-base font-extrabold text-slate-900 leading-none">5.0 <span class="text-[11px] text-amber-600">/ 5.0</span></div>
+                        <div class="text-[10px] font-bold text-slate-700">ระดับ: ยอดเยี่ยม</div>
+                        <div class="text-[10px] font-bold text-amber-800 border-b border-dotted border-amber-600">คุณให้ 5/5 (จาก 4 คน)</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="text-xs font-bold text-slate-700"><i class="fas fa-check-double text-emerald-600 mr-1"></i> ผลลัพธ์การซิงค์สูตรนับข้อมูล (เคส True Sphere & Branding Shop)</span>
+                  <span class="badge-new">100% MATCH</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="p-3 rounded-xl bg-slate-50 border text-center">
+                    <span class="badge-old mb-1">สูตรนับเดิม</span>
+                    <div class="text-sm font-bold text-slate-600 mt-1">รับทราบแล้ว 278 / 279 คน</div>
+                    <div class="text-[10px] text-red-500 mt-0.5">คลาดเคลื่อนจากรีพอร์ต Excel 1 คน</div>
+                  </div>
+                  <div class="p-3 rounded-xl bg-emerald-50 border-2 border-emerald-400 text-center">
+                    <span class="badge-new mb-1">สูตรนับใหม่ (Unified)</span>
+                    <div class="text-sm font-extrabold text-emerald-700 mt-1">รับทราบแล้ว 279 / 279 คน (100%)</div>
+                    <div class="text-[10px] text-emerald-700 font-bold mt-0.5">ตรงกับไฟล์ Excel และ Email 100%</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-700">ไอคอนโหลดหน้าเว็บแบบใหม่ (True Red Loader):</span>
+                <div class="flex items-center gap-2 bg-red-50 px-3 py-1 rounded-lg border border-red-200">
+                  <div class="true-loader-mini"></div>
+                  <span class="text-xs font-bold text-red-600">กำลังโหลด...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100 text-xs text-slate-400">
+          <span>Slide 6 of 9 • Core System vs New Upgrades (Overview & Feedback)</span>
+          <span>True Acknowledge Dashboard</span>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- SLIDE 7: เปรียบเทียบตัวกรองอัจฉริยะ เดิม vs ใหม่                          -->
+      <!-- ========================================================================= -->
+      <div class="slide" data-notes="สไลด์หน้าที่ 7 สรุปการปรับปรุงตัวกรองอัจฉริยะ 4 มิติในหน้า Analytics ครับ เราปรับปรุง 3 จุดสำคัญเพื่อให้ดูข้อมูลได้ง่ายและแม่นยำขึ้น คือ 1. ช่องที่ 1 เปลี่ยนจากเดิมที่ดู 15 แคมเปญล่าสุดผสมกัน มาเป็น แยกดูเฉพาะแคมเปญที่กำลังดำเนินการอยู่ กับ ทุกแคมเปญที่สิ้นสุดแล้ว เพื่อไม่ให้แคมเปญใหม่ที่เพิ่งปล่อยมาดึงกราฟหัวทิ่มหรือฉุดค่าเฉลี่ยสะสมรวม 2. ช่องที่ 2 ตัดโหมดเปรียบเทียบ All Branded vs Geo-Based ที่ทำให้เกิดเส้น 0% ทับกันออก แล้วแยกเริ่มต้นที่กลุ่ม Shop และกลุ่ม Geo-Based โดยตรง และ 3. ซิงค์ตัวเลขจำนวนแคมเปญในวงเล็บของช่องที่ 1 และช่องที่ 3 ให้แสดงจำนวนเดียวกันตรงกัน 100% ครับ">
+        <div>
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-red-600">MODULE 06 • SMART FILTER & CHART EVOLUTION (PART 2)</span>
+              <h2 class="text-3xl font-bold text-slate-900 mt-1">6. การยกระดับตัวกรองอัจฉริยะ & กราฟวิเคราะห์ (เดิม vs ใหม่)</h2>
+            </div>
+            <span class="badge-new"><i class="fas fa-sliders"></i> ตัดความซับซ้อน ซิงค์ตัวเลขตรงกัน 100%</span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-5 mb-5">
+            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+              <div>
+                <h4 class="font-bold text-slate-800 text-base mb-3"><i class="fas fa-calendar-check text-red-600 mr-1.5"></i>1. ช่องเลือกช่วงเวลา / เดือน</h4>
+                <div class="p-3 rounded-xl bg-white border border-slate-200 mb-3">
+                  <span class="badge-old mb-1">แบบเดิม</span>
+                  <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                    แสดง <b>"🔥 15 แคมเปญล่าสุด"</b> และ <b>"ทุกแคมเปญทั้งหมด (46)"</b> ซึ่งนำแคมเปญที่เพิ่งเปิดใหม่ (คนเพิ่งอ่าน 7%) มารวมคำนวณ ทำให้ปลายกราฟเส้นหักหัวดิ่งลงพื้นและฉุดค่าเฉลี่ยรวม
+                  </p>
+                </div>
+              </div>
+              <div class="p-3.5 rounded-xl bg-red-50/70 border-2 border-red-300">
+                <span class="badge-new mb-1">อัปเกรดใหม่ล่าสุด</span>
+                <p class="text-xs text-slate-800 font-semibold mt-1 leading-relaxed">
+                  เปลี่ยนเป็น <b>"🟢 แคมเปญที่กำลังดำเนินการอยู่"</b> และ <b>"📅 ทุกแคมเปญที่สิ้นสุดแล้ว (สะสมทั้งหมด)"</b> แยกงานตามด่วนออกจากค่าเฉลี่ยสะสมที่จบแล้วอย่างเด็ดขาด 100%
+                </p>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+              <div>
+                <h4 class="font-bold text-slate-800 text-base mb-3"><i class="fas fa-sitemap text-blue-900 mr-1.5"></i>2. ช่องเลือกมุมมองช่องทาง</h4>
+                <div class="p-3 rounded-xl bg-white border border-slate-200 mb-3">
+                  <span class="badge-old mb-1">แบบเดิม</span>
+                  <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                    เปิดมาที่ <b>"⚖️ เปรียบเทียบ All Branded vs Geo-Based"</b> ซึ่งข่าวส่วนใหญ่ส่งคนละกลุ่ม ทำให้เส้นกราฟอีกฝั่งดิ่งเป็น <code>0%</code> กองที่พื้น และนำสาขา Shop มาจัดอันดับปนกับตำแหน่ง Geo-Based
+                  </p>
+                </div>
+              </div>
+              <div class="p-3.5 rounded-xl bg-red-50/70 border-2 border-red-300">
+                <span class="badge-new mb-1">อัปเกรดใหม่ล่าสุด</span>
+                <p class="text-xs text-slate-800 font-semibold mt-1 leading-relaxed">
+                  <b>ตัดโหมดเปรียบเทียบที่ดูยากออก</b> แล้วเริ่มต้นที่ <b>"🏪 รวมกลุ่ม All Branded (Shop)"</b> และ <b>"📍 รวมกลุ่ม Geo-Based"</b> โดยตรง กราฟสะอาดตาและจัดอันดับเฉพาะในสายงานเดียวกัน
+                </p>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+              <div>
+                <h4 class="font-bold text-slate-800 text-base mb-3"><i class="fas fa-rotate text-emerald-700 mr-1.5"></i>3. การซิงค์จำนวนแคมเปญ & กราฟ</h4>
+                <div class="p-3 rounded-xl bg-white border border-slate-200 mb-3">
+                  <span class="badge-old mb-1">แบบเดิม</span>
+                  <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                    ช่องที่ 1 โชว์ยอดรวมทั้งระบบ <code>(46 แคมเปญ)</code> ค้างไว้ แต่ช่องที่ 3 โชว์เฉพาะ Shop <code>(37 แคมเปญ)</code> ทำให้ผู้บริหารสับสนว่าค่าเฉลี่ยคิดจากกี่แคมเปญกันแน่
+                  </p>
+                </div>
+              </div>
+              <div class="p-3.5 rounded-xl bg-red-50/70 border-2 border-red-300">
+                <span class="badge-new mb-1">อัปเกรดใหม่ล่าสุด</span>
+                <p class="text-xs text-slate-800 font-semibold mt-1 leading-relaxed">
+                  <b>Dynamic Count Sync:</b> ตัวเลขในวงเล็บของช่องที่ 1, ช่องที่ 3, การ์ด KPI และป้ายบนกราฟ ซิงค์ตรงกันเป๊ะ (เช่น <code>34 แคมเปญ</code> ที่สิ้นสุดแล้วของ Shop) พร้อมสลับเป็นกราฟแท่งเมื่อมี 1–2 แคมเปญ
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-slate-100 to-blue-50 border border-slate-300 flex items-center justify-between">
+            <div class="text-xs font-bold text-slate-700">
+              <i class="fas fa-check-circle text-emerald-600 mr-1"></i> ตัวอย่างการซิงค์ตัวเลขตรงกันทุกจุดเมื่อเลือกกลุ่ม Shop:
+            </div>
+            <div class="flex gap-3 text-xs font-bold">
+              <span class="bg-white px-3 py-1.5 rounded-lg border shadow-sm">ช่อง 1: 📅 ทุกแคมเปญที่สิ้นสุดแล้ว (34 แคมเปญ)</span>
+              <span class="bg-white px-3 py-1.5 rounded-lg border shadow-sm">ช่อง 2: 🏪 รวมกลุ่ม All Branded (Shop)</span>
+              <span class="bg-white px-3 py-1.5 rounded-lg border shadow-sm text-emerald-700">ช่อง 3: 🏪 เฉพาะประเภท Shop (34 แคมเปญ)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100 text-xs text-slate-400">
+          <span>Slide 7 of 9 • Smart Filter & Chart Evolution</span>
+          <span>True Acknowledge Dashboard</span>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- SLIDE 8: เปรียบเทียบกล่องสรุปผลวิเคราะห์ AI (เดิม vs ใหม่)                -->
+      <!-- ========================================================================= -->
+      <div class="slide" data-notes="สไลด์หน้าที่ 8 คือการอัปเกรดกล่องสรุปผลวิเคราะห์อัตโนมัติ หรือ AI Executive Summary ครับ เดิมทีระบบจะเขียนแนะนำให้เร่งติดตามแคมเปญที่ได้คะแนนน้อยสุดเสมอ แม้ว่าแคมเปญนั้นจะหมดเขตไปแล้ว เราจึงปรับตรรกะใหม่ให้ฉลาดขึ้นตามสถานะเวลาจริง คือ ถ้าแคมเปญกำลังดำเนินการอยู่ จะสั่งการให้เร่งติดตามคนค้างอ่านก่อนวันหมดเขต แต่ถ้าแคมเปญสิ้นสุดไปแล้วทั้งหมด จะเปลี่ยนเป็นข้อเสนอแนะสำหรับแคมเปญถัดไป เพื่อยกระดับค่าเฉลี่ยให้ผ่านเกณฑ์มาตรฐาน 80% ครับ">
+        <div>
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-red-600">MODULE 07 • CONTEXT-AWARE AI EXECUTIVE SUMMARY (PART 3)</span>
+              <h2 class="text-3xl font-bold text-slate-900 mt-1">7. การอัปเกรดกล่อง 💡 สรุปผลวิเคราะห์อัตโนมัติ (เดิม vs ใหม่)</h2>
+            </div>
+            <span class="badge-new"><i class="fas fa-lightbulb"></i> แยกคำแนะนำตามสถานะ กำลังดำเนินการ vs สิ้นสุดแล้ว</span>
+          </div>
+
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-slate-100 border border-slate-300">
+              <div class="flex items-center justify-between mb-2">
+                <span class="badge-old">ข้อความสรุปแบบเดิม (ก่อนปรับปรุง)</span>
+                <span class="text-xs font-bold text-red-600"><i class="fas fa-triangle-exclamation mr-1"></i> ข้อสังเกต: แคมเปญสิ้นสุดไปแล้ว ไม่สามารถกดติดตามให้พนักงานทำต่อได้</span>
+              </div>
+              <div class="bg-white p-3.5 rounded-xl border border-slate-200 text-xs text-slate-600 leading-relaxed">
+                <b>💡 สรุปผลวิเคราะห์ (2026 • True Shop DB7) — รวม 7 แคมเปญ (สิ้นสุดแล้วทั้งหมด):</b><br>
+                • มีอัตราการรับทราบเฉลี่ยอยู่ที่ 64% (อันดับที่ 2 จาก 6 ช่องทาง • สูงกว่าค่าเฉลี่ยกลุ่ม +10%) • แคมเปญที่ทำได้ดีที่สุดคือ "แนวทางการทำคอนเทนต์ ผ่านโซเชียลมีเดีย" (86%)<br>
+                • <s class="text-red-500">สิ่งที่ควรทำต่อ: เร่งติดตามแคมเปญ "Morning Brief 02-08 ต.ค. 69" (40%) ซึ่งมียอดค้างอ่าน 421 คน</s>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6">
+              <div class="p-5 rounded-2xl bg-emerald-50/60 border-2 border-emerald-400 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="badge-new">อัปเกรดใหม่ • โหมดที่ 1</span>
+                    <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-3 py-0.5 rounded-full">🟢 เมื่อดูแคมเปญที่ "กำลังดำเนินการ"</span>
+                  </div>
+                  <h4 class="font-bold text-slate-800 text-base mb-1">ชี้เป้าติดตามงานด่วนก่อนหมดเขต (Active Tracking)</h4>
+                  <p class="text-xs text-slate-600 mb-3">คัดกรองเฉพาะแคมเปญที่ยังเปิดอยู่มาแจ้งเตือน พร้อมบอกยอดค้างอ่านและวันหมดเขต เพื่อให้หัวหน้างานนำไปติดตามต่อได้จริง</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-emerald-200 text-xs leading-relaxed shadow-sm">
+                  <b class="text-blue-900">💡 สรุปผลวิเคราะห์ (แคมเปญที่กำลังดำเนินการอยู่ • True Shop DB7) — รวม 2 แคมเปญ:</b><br>
+                  • มีอัตราการรับทราบเฉลี่ยอยู่ที่ <b class="text-blue-700">60%</b> (อันดับที่ <b>2</b> จาก 6 ช่องทาง • <b class="text-emerald-600">สูงกว่าค่าเฉลี่ยกลุ่ม +6%</b>)<br>
+                  • <b class="text-red-600">🎯 สิ่งที่ต้องเร่งติดตามด่วน (กำลังดำเนินการ 2 แคมเปญ):</b> แคมเปญที่ยังเปิดอยู่และมีอัตราการอ่านต่ำสุดคือ <b class="text-red-600">"พร้อมแล้ว True DNA Service" (รับทราบแล้ว 45% • ค้างอ่าน 578 คน หมดเขต 10/11/2026)</b> แนะนำให้กดส่งรายงานแจ้งเตือนสาขาก่อนครบกำหนด
+                </div>
+              </div>
+
+              <div class="p-5 rounded-2xl bg-blue-50/60 border-2 border-blue-400 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="badge-new">อัปเกรดใหม่ • โหมดที่ 2</span>
+                    <span class="text-xs font-bold text-blue-900 bg-blue-100 px-3 py-0.5 rounded-full">⚪ เมื่อดูแคมเปญที่ "สิ้นสุดแล้วทั้งหมด"</span>
+                  </div>
+                  <h4 class="font-bold text-slate-800 text-base mb-1">สรุปบทเรียน & ตั้งเป้าหมายแคมเปญถัดไป (Next Strategy)</h4>
+                  <p class="text-xs text-slate-600 mb-3">เปลี่ยนเป็นข้อเสนอแนะสำหรับแคมเปญหน้า ชี้จุดที่เคยพลาดเป้า และคำนวณ % ที่ต้องกระตุ้นเพิ่มเพื่อให้ผ่านเกณฑ์มาตรฐาน 80%</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-blue-200 text-xs leading-relaxed shadow-sm">
+                  <b class="text-blue-900">💡 สรุปผลวิเคราะห์ (เดือนตุลาคม 2026 • True Shop DB7) — รวม 7 แคมเปญ (สิ้นสุดแล้วทั้งหมด):</b><br>
+                  • มีอัตราการรับทราบเฉลี่ยอยู่ที่ <b class="text-blue-700">64%</b> (อันดับที่ <b>2</b> จาก 6 ช่องทาง • <b class="text-emerald-600">สูงกว่าค่าเฉลี่ยกลุ่ม +10%</b>) • แคมเปญที่ทำได้ดีที่สุดคือ <b class="text-emerald-700">"แนวทางการทำคอนเทนต์..." (86%)</b><br>
+                  • <b class="text-blue-900">🚀 ข้อเสนอแนะสำหรับแคมเปญถัดไป:</b> ในรอบที่ผ่านมา แคมเปญที่มีการรับทราบต่ำสุดคือ <b class="text-red-600">"Morning Brief 02-08 ต.ค. 69" (40% • พลาดเป้าไม่ได้อ่าน 421 คน)</b> สำหรับแคมเปญใหม่ครั้งถัดไป แนะนำให้หัวหน้าสาขาช่วยกระตุ้นตั้งแต่วันแรกๆ ที่ปล่อยข่าว เพื่อยกระดับค่าเฉลี่ยจาก <b>64%</b> ให้ผ่านเกณฑ์มาตรฐาน <b>80%</b> (ต้องกระตุ้นการอ่านเพิ่มขึ้นอีกประมาณ <b>+16%</b> ในรอบถัดไป)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100 text-xs text-slate-400">
+          <span>Slide 8 of 9 • Context-Aware AI Summary Upgrade</span>
+          <span>กดปุ่มลูกศรขวา (→) เพื่อดูการอัปเกรดฝั่งพนักงาน (LINE LIFF Ultra-Speed)</span>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- SLIDE 9 (เพิ่มต่อท้ายใหม่ล่าสุด!): การอัปเกรดฝั่งพนักงาน LINE LIFF        -->
+      <!-- ========================================================================= -->
+      <div class="slide" data-notes="และสไลด์สุดท้าย หน้าที่ 9 คือการอัปเกรดประสบการณ์การใช้งานฝั่งพนักงานบน LINE LIFF ครับ เราแก้ปัญหาคอขวด 2 จุดใหญ่ คือ 1. ตอนเข้าเว็บที่เดิมหมุนรอนาน 4-7 วินาที เราเปลี่ยนมาดึง lineId จาก DecodedIDToken ทันทีคู่กับการใช้ getRangeList และ Smart Cache หลังบ้าน ทำให้เข้าเว็บได้ใน 0.5 วินาทีโดยข้อมูลถูกต้องแม่นยำ 100% 2. ตอนกดรับทราบ เราลดเวลาหมุนรอเหลือเพียง 0.35 วินาทีแล้วตัดเข้าหน้าบันทึกสำเร็จทันทีด้วยระบบส่งข้อมูลพื้นหลัง keepalive และ 3. เพิ่มการแสดงรายการหัวข้อที่รับทราบแล้ว (เฉพาะแคมเปญที่ยังไม่สิ้นสุด) ไว้ด้านล่างกล่องเยี่ยมมาก เพื่อให้พนักงานและหัวหน้างานตรวจสอบย้อนหลังได้ทันทีโดยไม่กระทบความเร็วระบบครับ">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-red-600">MODULE 08 • STAFF LIFF EXPERIENCE & ULTRA-SPEED ARCHITECTURE (PART 4)</span>
+              <h2 class="text-3xl font-bold text-slate-900 mt-1">8. การอัปเกรดฝั่งพนักงาน (LINE LIFF): ความเร็วสูง & แสดงหัวข้อที่รับทราบแล้ว</h2>
+            </div>
+            <span class="badge-new"><i class="fas fa-bolt"></i> เร็วขึ้น 8 เท่า • ข้อมูลถูกต้องแม่นยำ 100%</span>
+          </div>
+
+          <div class="grid grid-cols-12 gap-6 items-stretch">
+            
+            <!-- ฝั่งซ้าย: เปรียบเทียบความเร็ว เดิม vs ใหม่ 3 ขั้นตอน -->
+            <div class="col-span-7 space-y-3.5">
+              
+              <!-- จุดที่ 1: ตอนเปิดเข้าเว็บ -->
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="font-bold text-sm text-slate-800"><i class="fas fa-door-open text-blue-900 mr-1.5"></i>1. ความเร็วตอนเปิดเข้าเว็บ (หน้าหมุนรูปโปรไฟล์ตรวจสอบข้อมูล)</span>
+                  <span class="badge-new">4–7 วิ ➔ เหลือ 0.5 วิ</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                  <div class="bg-white p-2.5 rounded-xl border border-slate-200 text-slate-600">
+                    <span class="badge-old mb-1">แบบเดิม</span><br>
+                    รอ <code>liff.getProfile()</code> เสร็จก่อนค่อยยิง API + หลังบ้านวนลูปดึง <code>getRange()</code> ทีละแถวตามจำนวนข่าวที่เคยอ่าน
+                  </div>
+                  <div class="bg-red-50/50 p-2.5 rounded-xl border border-red-200 text-slate-800 font-semibold">
+                    <span class="badge-new mb-1">อัปเกรดใหม่</span><br>
+                    ดึง <code>lineId</code> ทันทีจาก <code>DecodedIDToken</code> (0.001 วิ) + ใช้ <code>getRangeList()</code> ดึงประวัติในคำสั่งเดียว + <code>Smart Cache</code>
+                  </div>
+                </div>
+              </div>
+
+              <!-- จุดที่ 2: ตอนกดบันทึก -->
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="font-bold text-sm text-slate-800"><i class="fas fa-paper-plane text-red-600 mr-1.5"></i>2. ความเร็วตอนกดยืนยันรับทราบ (หน้าหมุน "กำลังตรวจสอบ เพื่อบันทึกข้อมูล...")</span>
+                  <span class="badge-new">3–10 วิ ➔ เหลือ 0.35 วิ</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                  <div class="bg-white p-2.5 rounded-xl border border-slate-200 text-slate-600">
+                    <span class="badge-old mb-1">แบบเดิม</span><br>
+                    หน้าเว็บหมุนค้างรอคิว <code>LockService</code> และดึง Array ทั้งชีท <code>Data</code> (หลายหมื่นแถว) มาวนลูปเช็กซ้ำ
+                  </div>
+                  <div class="bg-red-50/50 p-2.5 rounded-xl border border-red-200 text-slate-800 font-semibold">
+                    <span class="badge-new mb-1">อัปเกรดใหม่</span><br>
+                    โชว์หน้าหมุนเพียง <b>0.35 วินาที</b> แล้วตัดเข้าหน้า <b>"บันทึกสำเร็จ"</b> ทันที + ส่งข้อมูลเบื้องหลังด้วย <code>keepalive</code> & <code>TextFinder</code>
+                  </div>
+                </div>
+              </div>
+
+              <!-- จุดที่ 3: แสดงรายการหัวข้อที่รับทราบแล้ว -->
+              <div class="p-4 rounded-2xl bg-emerald-50/50 border-2 border-emerald-400">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-bold text-sm text-emerald-950"><i class="fas fa-list-check text-emerald-600 mr-1.5"></i>3. ฟีเจอร์ใหม่: แสดงรายการ "หัวข้อที่รับทราบแล้ว (เฉพาะแคมเปญที่ยังไม่สิ้นสุด)"</span>
+                  <span class="badge-new">ZERO LATENCY</span>
+                </div>
+                <p class="text-xs text-slate-700 leading-relaxed">
+                  แยกส่งข้อมูล <code>ackedActiveTopics</code> จากการสแกนรอบเดียวกัน (ไม่เพิ่มภาระ Server 0%) แสดงเป็นการ์ดสีเขียวอ่อนแบบ Read-only (กดซ้ำไม่ได้) ใต้กล่อง <b>"เยี่ยมมาก!"</b> ช่วยให้พนักงานและหัวหน้าสาขาตรวจสอบหลักฐานการกดรับทราบย้อนหลังได้ทันที
+                </p>
+              </div>
+
+            </div>
+
+            <!-- ฝั่งขวา: ภาพจำลองหน้าจอมือถือของพนักงาน (Mobile UI Mockup) -->
+            <div class="col-span-5 bg-slate-100 rounded-2xl p-4 border border-slate-200 flex flex-col items-center justify-center">
+              <div class="w-full max-w-[330px] bg-white rounded-[26px] border-4 border-slate-800 p-4 shadow-xl">
+                <div class="text-center mb-3">
+                  <div class="text-red-600 font-extrabold text-lg tracking-tight">true</div>
+                  <div class="text-sm font-bold text-slate-900">Acknowledge</div>
+                  <div class="text-[10px] text-slate-400">ยืนยันรับทราบข้อมูลข่าวสาร</div>
+                </div>
+
+                <!-- Profile Card Mini -->
+                <div class="flex items-center gap-3 p-2.5 rounded-2xl border border-slate-100 shadow-sm mb-3 bg-white">
+                  <div class="relative">
+                    <div class="w-11 h-11 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold text-sm">อ</div>
+                    <div class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[8px] absolute bottom-0 right-0 border border-white"><i class="fas fa-check"></i></div>
+                  </div>
+                  <div class="text-left">
+                    <div class="text-xs font-bold text-slate-800">คุณอนนท์ ศรีวาจา</div>
+                    <div class="text-[10px] text-slate-500 bg-slate-50 px-2 py-0.5 rounded border mt-0.5">ID : 90006323 • Back Office</div>
+                  </div>
+                </div>
+
+                <!-- กล่องสีเขียว เยี่ยมมาก! (ของเดิม) -->
+                <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-center mb-3">
+                  <i class="fas fa-check-circle text-emerald-600 text-xl mb-1"></i>
+                  <div class="text-xs font-bold text-emerald-700">เยี่ยมมาก!</div>
+                  <div class="text-[10px] text-slate-500">คุณได้รับทราบข้อมูลครบทุกหัวข้อแล้ว</div>
+                </div>
+
+                <!-- โซนใหม่: หัวข้อที่รับทราบแล้ว (เฉพาะที่ยังไม่สิ้นสุด) -->
+                <div class="text-left">
+                  <div class="text-[11px] font-bold text-emerald-700 mb-1.5 flex items-center gap-1">
+                    <i class="fas fa-circle-check"></i> หัวข้อที่รับทราบแล้ว (2 หัวข้อ)
+                  </div>
+                  <div class="space-y-1.5">
+                    <div class="p-2.5 rounded-xl bg-[#f8fdf9] border border-[#d1e7dd] flex items-center justify-between">
+                      <span class="text-[11px] font-semibold text-slate-800 truncate pr-2">พร้อมแล้ว True DNA Service</span>
+                      <span class="text-[9px] font-bold bg-[#d1e7dd] text-[#0f5132] px-2 py-0.5 rounded-full flex-shrink-0">✓ รับทราบแล้ว</span>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-[#f8fdf9] border border-[#d1e7dd] flex items-center justify-between">
+                      <span class="text-[11px] font-semibold text-slate-800 truncate pr-2">Morning Brief 30-5 พ.ย. 69</span>
+                      <span class="text-[9px] font-bold bg-[#d1e7dd] text-[#0f5132] px-2 py-0.5 rounded-full flex-shrink-0">✓ รับทราบแล้ว</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100 text-xs text-slate-400">
+          <span>Slide 9 of 9 • Staff LIFF Ultra-Speed & Acknowledged Active Topics</span>
+          <span>Developed by Channel Academy & Communication | True Corporation</span>
+        </div>
+      </div>
+
+      <!-- Speaker Notes Drawer -->
+      <div id="notes-drawer" class="hidden bg-slate-900 text-white px-10 py-4 border-t border-slate-700 z-20">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex items-start gap-3">
+            <span class="px-2.5 py-1 rounded bg-amber-500 text-slate-950 font-bold text-xs mt-0.5 flex-shrink-0">
+              <i class="fas fa-microphone mr-1"></i> บทพูดนำเสนอ
+            </span>
+            <p id="notes-content" class="text-sm text-slate-200 leading-relaxed"></p>
+          </div>
+          <button onclick="toggleNotes()" class="text-slate-400 hover:text-white text-sm">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bottom Navigation Controls -->
+      <div class="flex items-center justify-between px-10 py-3 bg-slate-50 border-t border-slate-200 z-10">
+        <button id="btn-prev" onclick="changeSlide(-1)" class="px-4 py-2 rounded-full bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 text-xs font-bold transition flex items-center gap-2 disabled:opacity-40">
+          <i class="fas fa-arrow-left"></i> ก่อนหน้า
+        </button>
+        <div id="slide-counter" class="text-xs font-bold text-slate-500">
+          1 / 9
+        </div>
+        <button id="btn-next" onclick="changeSlide(1)" class="px-5 py-2 rounded-full true-gradient-bg text-white hover:opacity-95 text-xs font-bold transition flex items-center gap-2 shadow-sm disabled:opacity-40">
+          ถัดไป <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    function initIndicators() {
+      const container = document.getElementById('slide-indicators');
+      container.innerHTML = '';
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.onclick = () => goToSlide(i);
+        dot.className = `h-2.5 rounded-full transition-all ${i === currentSlide ? 'w-8 bg-red-600' : 'w-2.5 bg-slate-300 hover:bg-slate-400'}`;
+        container.appendChild(dot);
+      }
+    }
+
+    function updateSlideUI() {
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === currentSlide);
+      });
+      document.getElementById('slide-counter').innerText = `หน้า ${currentSlide + 1} จาก ${totalSlides}`;
+      document.getElementById('btn-prev').disabled = currentSlide === 0;
+      document.getElementById('btn-next').disabled = currentSlide === totalSlides - 1;
+      document.getElementById('notes-content').innerText = slides[currentSlide].getAttribute('data-notes') || '';
+      initIndicators();
+    }
+
+    function changeSlide(direction) {
+      const nextIndex = currentSlide + direction;
+      if (nextIndex >= 0 && nextIndex < totalSlides) {
+        currentSlide = nextIndex;
+        updateSlideUI();
+      }
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateSlideUI();
+    }
+
+    function toggleNotes() {
+      const drawer = document.getElementById('notes-drawer');
+      drawer.classList.toggle('hidden');
+    }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        changeSlide(1);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        changeSlide(-1);
+      } else if (e.key.toLowerCase() === 'n') {
+        toggleNotes();
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullScreen();
+      }
+    });
+
+    updateSlideUI();
+  </script>
+</body>
+</html>
